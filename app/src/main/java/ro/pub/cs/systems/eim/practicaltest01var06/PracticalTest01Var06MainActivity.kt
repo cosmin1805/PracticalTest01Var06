@@ -40,7 +40,7 @@ class PracticalTest01Var06MainActivity : AppCompatActivity() {
     private var value2 = 2
     private var value3 = 3
 
-    private val score = 0;
+    private var score = 0;
 
     private lateinit var startForResult: ActivityResultLauncher<Intent>
 
@@ -126,7 +126,8 @@ class PracticalTest01Var06MainActivity : AppCompatActivity() {
             if(result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
                 val someData = data?.getStringExtra("gained")
-                val toast = Toast.makeText(this, someData.toString(),Toast.LENGTH_SHORT) // in Activity
+                score += someData.toString().toInt()
+                val toast = Toast.makeText(this, score.toString(),Toast.LENGTH_SHORT) // in Activity
                 toast.show()
             }
 
@@ -136,6 +137,37 @@ class PracticalTest01Var06MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        savedInstanceState.getInt("score")?.let { value ->
+            score = value
+            val toast = Toast.makeText(this, score.toString(),Toast.LENGTH_SHORT) // in Activity
+            toast.show()
+        }
+
+    }
+
+
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        /* Trebuie sa apelam metoda din clasa de baza întrucât API-ul Android
+        furnizează o implementare implicită pentru salvarea stării unei
+        activități, parcurgând ierarhia de componente grafice (obiecte de tip
+        `View`) care au asociat un identificator (`android:id`), folosit drept
+        cheie în obiectul `Bundle`. Astfel, de regulă, pentru elementele
+        interfeței grafice, nu este necesar să se mențină starea, acest lucru
+        fiind realizat în mod automat, cu respectarea condiției menționate.
+        super.onSaveInstanceState(savedInstanceState); */
+
+        super.onSaveInstanceState(savedInstanceState)
+
+        /* Determian o referinta pentru obiectul de tip EditText din interfata grafica
+           cu ID-ul username_edit_text */
+
+        savedInstanceState.putInt("score", score)
+    }
+
 
     private val someEventBroadcastReceiver = SomeEventBroadcastReceiver()
     private val intentFilter = IntentFilter("ro.pub.cs.systems.eim.practicaltest01var06.MESSAGE")

@@ -47,6 +47,7 @@ class PracticalTest01Var06SecondaryActivity : AppCompatActivity() {
         button3.setOnClickListener {
             val intentToParent = Intent()
             intentToParent.putExtra("gained", gained.toString())
+
             setResult(RESULT_OK, intentToParent)
             finish()
         }
