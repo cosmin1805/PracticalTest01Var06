@@ -13,8 +13,8 @@ class SomeEventBroadcastReceiver : BroadcastReceiver() {
 
         Log.d("EIM", "Am primit: $message")
 
-        // val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT) // in Activity
-        // toast.show()
+        val toast = Toast.makeText(context, message.toString(), Toast.LENGTH_SHORT) // in Activity
+        toast.show()
     }
 
     // adb shell "am broadcast -a ro.pub.cs.systems.eim.practicaltest01var06.MESSAGE -p ro.pub.cs.systems.eim.practicaltest01var06 --es message 'Bine ai venit la EIM'"
